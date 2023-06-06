@@ -1,5 +1,5 @@
 import os.path
-
+from framework.Basic.Basic_Locator import basic_loc
 from selenium.webdriver import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -7,15 +7,8 @@ from time import sleep
 from framework.config import *
 
 
-class Page:
-    """ This is a class for common page """
-
-    # Element locators on common page
-    alert_dialog = (xpath, "//div[@role='alertdialog']")
-    input_search = (xpath, "//input[@data-placeholder='Search']")
-    first_item = (xpath, "(//span//a)[1]")
-    btn_confirm = (xpath, "//button[.='Confirm']")
-    btn_cancel = (xpath, "//button[.='Cancel']")
+class BasicPage:
+    """ This is a class for basic page """
 
     def __init__(self, driver, file):
         self.driver = driver
@@ -23,36 +16,36 @@ class Page:
         self.file = file
         self.browser = browser
 
-    def find_element(self, locator):
+    def find_display_element(self, locator):
         """ Wait 30 seconds until the element is visible """
         return WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located(locator))
 
-    def find_elements(self, locators):
+    def find_display_elements(self, locators):
         """ Wait 30 seconds until the elements are visible """
         return WebDriverWait(self.driver, 30).until(EC.visibility_of_all_elements_located(locators))
 
-    def cannot_find_element(self, locator):
+    def cannot_find_display_element(self, locator):
         """ Wait 30 seconds until the elements are invisible """
         return WebDriverWait(self.driver, 30).until_not(EC.visibility_of_element_located(locator))
 
     def search(self, keyword):
         """ Search items on the list page """
-        self.find_element(self.input_search).clear()
-        self.find_element(self.input_search).send_keys(keyword)
-        self.find_element(self.input_search).send_keys(Keys.ENTER)
+        self.find_display_element(basic_loc.input_search).clear()
+        self.find_display_element(basic_loc.input_search).send_keys(keyword)
+        self.find_display_element(basic_loc.input_search).send_keys(Keys.ENTER)
         sleep(1)
 
     def get_alert_message(self):
         """ Get the alert message """
-        return self.find_element(self.alert_dialog).text
+        return self.find_display_element(basic_loc.alert_dialog).text
 
     def confirm(self):
         """ Click "Confirm" button """
-        self.find_element(self.btn_confirm).click()
+        self.find_display_element(basic_loc.btn_confirm).click()
         sleep(1)
 
     def cancel(self):
-        self.find_element(self.btn_cancel).click()
+        self.find_display_element(basic_loc.btn_cancel).click()
         sleep(1)
 
     def screenshot(self):

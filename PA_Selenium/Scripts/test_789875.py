@@ -1,11 +1,11 @@
-from framework.DataConnectorPage import *
+from framework.DataConnector.Data_Connector_Page import *
 
 
 def test_789875(setup):
     """ PA-DCDP: UC746983 Edit Data Connector - Successful Save of an edited Data Connector """
 
     driver = setup
-    dc_page = DataConnectorPage(driver, __file__)
+    dc_page = DataConnectorListPage(driver, __file__)
 
     print('1. Go to Data Connectors list page')
     dc_page.open()

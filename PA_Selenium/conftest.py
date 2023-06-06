@@ -1,7 +1,7 @@
 import os.path
 import pytest
 from selenium import webdriver
-from framework.LoginPage import *
+from framework.Login.Login_Page import *
 from framework.config import *
 
 
