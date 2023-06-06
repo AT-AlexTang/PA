@@ -1,5 +1,4 @@
 from framework.Basic.Basic_Page import *
-from framework.Basic.Basic_Locator import *
 from framework.DataConnector.Data_Connector_Locator import *
 from time import sleep
 from time import time
@@ -20,7 +19,7 @@ class DataConnectorListPage(BasicPage):
         """ Open the specific Data Connector detail page """
         self.open()
         self.search(name)
-        self.find_display_element(basic_loc.first_item).click()
+        self.find_display_element(dc_list_loc.first_item).click()
 
     def add_dc(self, name='DC_'+str(round(time()*1000))):
         """ Add a new Data Connector """
@@ -46,19 +45,19 @@ class DataConnectorListPage(BasicPage):
                 self.find_display_element(dc_detail_loc.input_query).send_keys(query)
         # Add Headers
         for index, header in enumerate(headers):
-            self.find_display_element(dc_detail_loc.btn_detail_add).click()
+            self.find_display_element(dc_detail_loc.btn_add).click()
             self.find_display_element(dc_detail_loc.input_key).send_keys(header[0])
             self.find_display_element(dc_detail_loc.input_value).send_keys(header[1])
-            self.find_display_element(dc_detail_loc.btn_action_save).click()
+            self.find_display_element(dc_detail_loc.btn_table_save).click()
             sleep(0.5)
         # Add Parameters
         self.find_display_element(dc_detail_loc.tab_params).click()
         sleep(1)
         for index, param in enumerate(params):
-            self.find_display_element(dc_detail_loc.btn_detail_add).click()
+            self.find_display_element(dc_detail_loc.btn_add).click()
             self.find_display_element(dc_detail_loc.input_key).send_keys(param[0])
             self.find_display_element(dc_detail_loc.input_value).send_keys(param[1])
-            self.find_display_element(dc_detail_loc.btn_action_save).click()
+            self.find_display_element(dc_detail_loc.btn_table_save).click()
             sleep(0.5)
         # Click "Save" button
         self.find_display_element(dc_detail_loc.btn_save).click()
@@ -68,8 +67,8 @@ class DataConnectorListPage(BasicPage):
         """ Edit name, URL, Connector Type, Method, Query String for GraphQL, Headers and Parameters on the detail page """
         # Edit Connector Name
         sleep(1)
-        self.find_display_element(dc_detail_loc.input_detail_name).clear()
-        self.find_display_element(dc_detail_loc.input_detail_name).send_keys(name)
+        self.find_display_element(dc_detail_loc.input_name).clear()
+        self.find_display_element(dc_detail_loc.input_name).send_keys(name)
         # Edit URL
         self.find_display_element(dc_detail_loc.input_URL).clear()
         self.find_display_element(dc_detail_loc.input_URL).send_keys(URL)
@@ -85,26 +84,26 @@ class DataConnectorListPage(BasicPage):
                 self.find_display_element(dc_detail_loc.input_query).clear()
                 self.find_display_element(dc_detail_loc.input_query).send_keys(query)
         # Edit Headers
-        btn_edits = [locator for locator in self.find_display_elements(dc_detail_loc.btn_action_edit)]
+        btn_edits = [locator for locator in self.find_display_elements(dc_detail_loc.btn_table_edit)]
         for index, header in enumerate(headers):
             btn_edits[index].click()
             self.find_display_element(dc_detail_loc.input_key).clear()
             self.find_display_element(dc_detail_loc.input_key).send_keys(header[0])
             self.find_display_element(dc_detail_loc.input_value).clear()
             self.find_display_element(dc_detail_loc.input_value).send_keys(header[1])
-            self.find_display_element(dc_detail_loc.btn_action_save).click()
+            self.find_display_element(dc_detail_loc.btn_table_save).click()
             sleep(0.5)
         # Edit Parameters
         self.find_display_element(dc_detail_loc.tab_params).click()
         sleep(1)
-        btn_edits = [locator for locator in self.find_display_elements(dc_detail_loc.btn_action_edit)]
+        btn_edits = [locator for locator in self.find_display_elements(dc_detail_loc.btn_table_edit)]
         for index, param in enumerate(params):
             btn_edits[index].click()
             self.find_display_element(dc_detail_loc.input_key).clear()
             self.find_display_element(dc_detail_loc.input_key).send_keys(param[0])
             self.find_display_element(dc_detail_loc.input_value).clear()
             self.find_display_element(dc_detail_loc.input_value).send_keys(param[1])
-            self.find_display_element(dc_detail_loc.btn_action_save).click()
+            self.find_display_element(dc_detail_loc.btn_table_save).click()
             sleep(0.5)
         # Click "Save" button
         self.find_display_element(dc_detail_loc.btn_save).click()
@@ -113,7 +112,7 @@ class DataConnectorListPage(BasicPage):
     def verify_dc_detail(self, name, URL, Type, method, headers, params, query):
         """ Verify all information on the detail page """
         sleep(1)
-        actual_name = self.find_display_element(dc_detail_loc.input_detail_name).get_attribute('value')
+        actual_name = self.find_display_element(dc_detail_loc.input_name).get_attribute('value')
         actual_URL = self.find_display_element(dc_detail_loc.input_URL).get_attribute('value')
         actual_Type = self.find_display_element(dc_detail_loc.select_type).text
         actual_method = self.find_display_element(dc_detail_loc.select_method).text
@@ -138,6 +137,6 @@ class DataConnectorListPage(BasicPage):
     
     def delete_dc(self):
         """ Click "Delete" button on the detail page """
-        self.find_display_element(dc_detail_loc.btn_detail_delete).click()
+        self.find_display_element(dc_detail_loc.btn_delete).click()
         self.confirm()
-        self.find_display_element(basic_loc.input_search)
+        self.find_display_element(dc_list_loc.input_search)

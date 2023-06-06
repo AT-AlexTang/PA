@@ -23,4 +23,4 @@ class LogicBlockBasicPage(BasicPage):
         self.find_display_element(lb_list_loc.input_name).send_keys(name)
         self.find_display_element(lb_list_loc.select_type).click()
         self.find_display_element((xpath, f"{lb_list_loc.option}[.=' {Type} ']")).click()
-        self.find_display_element(lb_list_loc.btn_confirm).click()
+        self.find_display_element(lb_list_loc.btn_ok).click()
